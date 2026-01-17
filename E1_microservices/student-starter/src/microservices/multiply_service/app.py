@@ -6,11 +6,15 @@ app = Flask(__name__)
 @app.route('/multiply', methods=['POST'])
 def multiply():
     """TODO: Return {"operation": "multiply", "a": ..., "b": ..., "result": ..., "service": "multiply_service"}"""
+    data = request.get_json()
+    a, b = data['a'], data['b']
+    return jsonify({"operation": "multiply", "a": a, "b": b, "result": a * b, "service": "multiply_service"})
     pass
 
 @app.route('/health', methods=['GET'])
 def health():
     """TODO: Return {"status": "healthy", "service": "multiply_service"}"""
+    return jsonify({"status": "healthy", "service": "multiply_service"})
     pass
 
 if __name__ == '__main__':
