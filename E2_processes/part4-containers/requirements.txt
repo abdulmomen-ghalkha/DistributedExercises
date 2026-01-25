@@ -1,0 +1,15 @@
+# Part 3 & 4: Dependencies
+# No external dependencies - using standard library only
+# This keeps the container image small and reduces attack surface
+#
+# Standard library modules used:
+# - socket      : TCP networking
+# - json        : Request/response serialization
+# - threading   : Concurrent request handling
+# - uuid        : Session ID generation
+# - time        : Timestamps and delays
+# - os          : Environment variables
+# - signal      : Graceful shutdown
+# - sys         : System information
+# - datetime    : Logging timestamps
+# - concurrent.futures : Thread pool

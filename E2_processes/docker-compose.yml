@@ -1,0 +1,59 @@
+# Docker Compose for Exercise 03: Processes
+#
+# Demonstrates container concepts from Lecture 3:
+# - Multiple container instances (scaling)
+# - Resource limits (cgroups)
+# - Networking (namespaces)
+#
+# Usage:
+#   docker-compose up -d
+#   docker-compose scale server=3  # Run 3 instances
+#   docker-compose down
+
+version: '3.8'
+
+services:
+  # Calculator server (can be scaled)
+  server:
+    build:
+      context: ./part4-containers
+      dockerfile: Dockerfile
+    ports:
+      - "8000-8010:8000"  # Range for scaling
+    environment:
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=8000
+      - WORKER_COUNT=4
+    # Resource limits (cgroups)
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  # Load balancer (optional)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - server
+    profiles:
+      - with-lb  # Only start if explicitly requested
+
+# Network configuration
+networks:
+  default:
+    driver: bridge
