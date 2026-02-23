@@ -600,6 +600,9 @@ def demo_basic():
         {'id': 3, 'operation': 'subtract', 'a': 100, 'b': 37},# 100 - 37 = 63
         {'id': 4, 'operation': 'add', 'a': 25, 'b': 25},      # 25 + 25 = 50
         {'id': 5, 'operation': 'multiply', 'a': 12, 'b': 12}, # 12 × 12 = 144
+        {'id': 6, 'operation': 'add', 'a': 12, 'b': 12}, # 12 × 12 = 144
+        {'id': 7, 'operation': 'subtract', 'a': 12, 'b': 12}, # 12 × 12 = 144
+        {'id': 8, 'operation': 'multiply', 'a': 12, 'b': 12}, # 12 × 12 = 144
     ]
     
     for task in tasks:
